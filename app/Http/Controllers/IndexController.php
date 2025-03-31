@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -17,9 +18,11 @@ class IndexController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function view_all()
     {
-        //
+        $tasks = Task::get();
+
+        return view('tasks', ['tasks' => $tasks]);
     }
 
     /**
@@ -27,7 +30,17 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|min:3',
+            'description' => 'required|min:8',
+        ]);
+        $task = new Task();
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->save();
+
+        return redirect()->route('view_all');
+
     }
 
     /**
@@ -35,23 +48,31 @@ class IndexController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $task = Task::find($id);
+
+        return view('edit-form', ['task' => $task]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request);
+        $request->validate([
+            'title' => 'required|min:3',
+            'description' => 'required|min:8',
+            'status' => 'required',
+        ]);
+        $task = Task::find($id);
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->status = $request->status;
+        $task->save();
+
+        return redirect()->route('view_all');
+
     }
 
     /**
@@ -59,6 +80,10 @@ class IndexController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $task = Task::find($id);
+
+        $task->delete();
+
+        return redirect()->route('view_all');
     }
 }
