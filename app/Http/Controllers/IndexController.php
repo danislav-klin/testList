@@ -9,6 +9,7 @@ class IndexController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * Стартовая страница
      */
     public function index()
     {
@@ -17,8 +18,9 @@ class IndexController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * страница с задачами
      */
-    public function view_all()
+    public function tasks()
     {
         $tasks = Task::get();
 
@@ -27,6 +29,7 @@ class IndexController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * метод добавления задачи
      */
     public function store(Request $request)
     {
@@ -39,12 +42,13 @@ class IndexController extends Controller
         $task->description = $request->description;
         $task->save();
 
-        return redirect()->route('view_all');
+        return redirect()->route('tasks');
 
     }
 
     /**
      * Display the specified resource.
+     * показать конкретную задачу
      */
     public function show(string $id)
     {
@@ -56,10 +60,11 @@ class IndexController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * обновить задачу
      */
     public function update(Request $request, string $id)
     {
-        // dd($request);
+        
         $request->validate([
             'title' => 'required|min:3',
             'description' => 'required|min:8',
@@ -71,12 +76,13 @@ class IndexController extends Controller
         $task->status = $request->status;
         $task->save();
 
-        return redirect()->route('view_all');
+        return redirect()->route('tasks');
 
     }
 
     /**
      * Remove the specified resource from storage.
+     * удалить задачу
      */
     public function destroy(string $id)
     {
@@ -84,6 +90,6 @@ class IndexController extends Controller
 
         $task->delete();
 
-        return redirect()->route('view_all');
+        return redirect()->route('tasks');
     }
 }

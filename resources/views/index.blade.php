@@ -2,7 +2,7 @@
     <h1 class="text-center my-5">{{ config('app.name') }}</h1>
 
     <div class="text-center">
-        <a href="{{ route('view_all') }}" class="my-3 ">look all tasks</a>
+        <a href="{{ route('tasks') }}" class="my-3 ">look all tasks</a>
         
     </div>
     <div class="container">

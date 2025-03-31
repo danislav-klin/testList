@@ -1,7 +1,7 @@
 <x-layout>
     <h1 class="text-center my-4">Edit</h1>
     <div class="text-center">
-        <a href="{{ route('view_all') }}" class="my-3 ">back out</a>
+        <a href="{{ route('tasks') }}" class="my-3 ">back out</a>
 
     </div>
     <div class="container">
